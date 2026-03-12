@@ -1,28 +1,17 @@
 const github = require('./github.js');
 const username = process.argv[2];
 
-console.log(username);
-
-const option = {
-  hostname: 'api.github.com',
-  path: `/users/${username}/repos`,
-  headers: {
-    'User-Agent': 'github-app',
-  },
-};
-
 main();
 
 async function main() {
-  github.getRepos(option, (err, repos) => {
+  github.getRepos(username, (err, repos) => {
     try {
       if (err) {
-        console.log('Ошибка в файле app.js github.getRepos');
+        return console.error(err.message);
       }
 
-      repos.forEach((repo) => {
-        console.log(repo.name);
-        console.log(repo);
+      repos.forEach((repo, index) => {
+        console.log(`[${index + 1}]`, repo.name);
       });
     } catch (error) {
       console.log('Ошибка в файле app.js github.getRepos');
