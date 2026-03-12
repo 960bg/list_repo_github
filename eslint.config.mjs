@@ -24,8 +24,45 @@ export default defineConfig([
     plugins: { js },
     extends: ['js/recommended'],
     languageOptions: { globals: globals.node },
+    rules: {
+      // 1. Разрешить пустые строки между операторами (логическими блоками)
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: '*', next: 'return' },
+        { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+        {
+          blankLine: 'any',
+          prev: ['const', 'let', 'var'],
+          next: ['const', 'let', 'var'],
+        },
+      ],
+      // 2. Настройка Prettier: не сжимать пустые строки слишком сильно
+      'no-multiple-empty-lines': ['error', { max: 2, maxEOF: 0 }],
+      // Здесь можно переопределить правила
+      'prettier/prettier': 'off',
+    },
   },
-  { files: ['**/*.js'], languageOptions: { sourceType: 'commonjs' } },
+  {
+    files: ['**/*.js'],
+    languageOptions: { sourceType: 'commonjs' },
+    rules: {
+      // 1. Разрешить пустые строки между операторами (логическими блоками)
+      'padding-line-between-statements': [
+        'error',
+        { blankLine: 'always', prev: '*', next: 'return' },
+        { blankLine: 'always', prev: ['const', 'let', 'var'], next: '*' },
+        {
+          blankLine: 'any',
+          prev: ['const', 'let', 'var'],
+          next: ['const', 'let', 'var'],
+        },
+      ],
+      // 2. Настройка Prettier: не сжимать пустые строки слишком сильно
+      'no-multiple-empty-lines': ['error', { max: 2, maxEOF: 0 }],
+      // Здесь можно переопределить правила
+      'prettier/prettier': 'off',
+    },
+  },
   {
     files: ['**/*.json'],
     plugins: { json },
